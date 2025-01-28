@@ -13,7 +13,6 @@ const genTokenAndSetCookie = (userId , res) => {
         sameSite : "strict", // CSRF attacks cros-site requests forgery attacks 
         //  protects against Cross-Site Request Forgery (CSRF) attacks by restricting 
         //  when the cookie is sent in cross-origin requests.
-        secure : process.env.NODE_ENV !== "development"
     });
 };
 
