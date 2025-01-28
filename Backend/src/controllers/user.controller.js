@@ -5,12 +5,12 @@ export const getAllUsers = async(req , res) =>{
 
         const loggedInUserId = req.user._id;
         if(!loggedInUserId){
-            return res.status(404).json("user not found");
+            return res.status(404).json({error:"user not found"});
         }
         // find all users that there id not equal to loggedInUserId 
         const filteredUsers = await userModel.find({_id : {$ne : loggedInUserId}}).select("-password");
         if(!filteredUsers){
-            return res.status(400).json("no users to show");
+            return res.status(400).json({error:"no users to show"});
         }
         res.status(200).json(filteredUsers);
         

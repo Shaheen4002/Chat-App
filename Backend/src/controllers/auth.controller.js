@@ -7,12 +7,12 @@ export const SignUp = async (req, res) => {
     const { fullName, username, password, confirmPassword, gender } = req.body;
 
     if (password !== confirmPassword) {
-      return res.status(400).json("password do not match");
+      return res.status(400).json({error:"password do not match"});
     }
     const isUserExist = await userModel.findOne({ username });
 
     if (isUserExist) {
-      return res.status(400).json("user already exist!");
+      return res.status(400).json({error:"user already exist!"});
     }
 
     // handle profile picture
@@ -40,7 +40,7 @@ export const SignUp = async (req, res) => {
         profilePic: newUser.profilepic,
       });
     } else {
-      return res.status(400).json("invalid user data");
+      return res.status(400).json({error:"invalid user data"});
     }
   } catch (error) {
     return res.status(500).json(error);
@@ -53,13 +53,13 @@ export const Login = async (req, res) => {
     const user = await userModel.findOne({ username });
 
     if (!user) {
-      return res.status(404).json("user not exist");
+      return res.status(404).json({error:"user not exist"});
     }
 
     const checkPassword = await bcrypt.compare(password, user.password);
 
     if (!checkPassword) {
-      return res.status(404).json("wrong password");
+      return res.status(404).json({error:"wrong password"});
     }
 
     genTokenAndSetCookie(user._id, res);
