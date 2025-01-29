@@ -10,7 +10,7 @@ export const verifyUser = async (req, res, next) => {
 
     const decode = jwt.verify(
       token,
-      "7inYjg4eQe6Sp5W9xu7WfuZ/7QE1ExIIoHMO4FcJ83g="
+      process.env.JWT_SECRET || ''
     );
     if (!decode) {
       return res.status(401).json({error:"invalid token"});

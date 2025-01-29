@@ -27,7 +27,7 @@ app.use("/messages",messagesRoutes);
 app.use("/users",userRoute);
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/ChitChat")
+  .connect(process.env.DATABASE_URL || '')
   .then(() => console.log("data base connected"))
   .catch((err) => {
     console.log("failed to connect ..", err);
