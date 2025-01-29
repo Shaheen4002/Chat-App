@@ -7,9 +7,10 @@ import dotenv from "dotenv"
 import authRouter from "./src/routes/auth.routes.js";
 import messagesRoutes from "./src/routes/messages.routes.js";
 import userRoute from "./src/routes/user.routes.js";
+import {app,server} from "./src/socket/socket.js";
 
 
-const app = express();
+
 const port = 3005;
 dotenv.config();
 
@@ -32,6 +33,6 @@ mongoose
     console.log("failed to connect ..", err);
   });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`server running on port ${port}`);
 });

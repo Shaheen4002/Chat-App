@@ -1,11 +1,14 @@
 /* eslint-disable react/prop-types */
 
 import { useContact } from "../context/ContactContext"
+import { useSocketContext } from "../context/SocketContext";
 
 const Contact = ({contact , lastIdx}) => {
 
   const {selected , setSelected} = useContact();
   const isSelected = selected?._id === contact._id;
+  const {onlineUsers} = useSocketContext();
+  const isOnline = onlineUsers.includes(contact._id)
   return (
     <>
     <div className={`flex items-center gap-8 hover:bg-sky-500 rounded p-2 py-1 cursor-pointer
@@ -13,7 +16,7 @@ const Contact = ({contact , lastIdx}) => {
     `}
     onClick={() => setSelected(contact)}
     >
-        <div className="avatar online">
+        <div className={`avatar ${isOnline ? "online" : ""}`}>
             <div className="w-12 rounded-full">
                 <img src={contact.profilepic} alt="user avatar"/>
             </div>
